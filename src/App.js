@@ -3,6 +3,8 @@ import Header from './components/Header';
 import Item from './components/Item';
 import Sort from './components/Sort';
 
+import data from '../src/assets/data.json';
+
 function App() {
   return (
     <div className="wrapper">
@@ -13,9 +15,11 @@ function App() {
             <Categories />
             <Sort />
           </div>
-          <h2 className="content__title">Все пиццы</h2>
+          <h2 className="content__title">aboba</h2>
           <div className="content__items">
-            <Item />
+            {data.map((item) => (
+              <Item data={item} key={item.id} />
+            ))}
           </div>
         </div>
       </div>
