@@ -1,11 +1,21 @@
+import { useEffect, useState } from 'react';
 import Categories from './components/Categories';
 import Header from './components/Header';
 import Item from './components/Item';
 import Sort from './components/Sort';
 
-import data from '../src/assets/data.json';
+const App = () => {
+  const [items, setItems] = useState([]);
 
-function App() {
+  useEffect(() => {
+    fetch('https://62ac9b539fa81d00a7b5e700.mockapi.io/items')
+      .then((response) => response.json())
+      .then((data) => {
+        setItems(data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   return (
     <div className="wrapper">
       <Header />
@@ -17,14 +27,14 @@ function App() {
           </div>
           <h2 className="content__title">aboba</h2>
           <div className="content__items">
-            {data.map((item) => (
-              <Item data={item} key={item.id} />
+            {items.map((item) => (
+              <Item {...item} key={item.id} />
             ))}
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default App;

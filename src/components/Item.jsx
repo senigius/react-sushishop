@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 
-const Item = ({ data }) => {
+const Item = ({ title, sizes, ingredients, weight, price, category, img }) => {
   const [count, setCount] = useState(null);
-  const { title, sizes, ingredients, weight, price, category, img } = data;
   const [piecesIndex, setPiecesIndex] = useState(0);
+  const [activePrice, setActivePrice] = useState(price);
 
   const handleAddItem = () => setCount(count + 1);
 
-  const handleChangePiecesValue = (index) => setPiecesIndex(index);
+  const handleChangePiecesValue = (index) => {
+    setPiecesIndex(index);
+    index === 0 ? setActivePrice(price) : setActivePrice(price * 2);
+  };
 
   const imagePath = `../assets/images/products/${img}`;
 
@@ -30,9 +33,7 @@ const Item = ({ data }) => {
         <span>{ingredients.join(', ')}</span>
       </div>
       <div className="sushi-block__bottom">
-        <div className="sushi-block__price">
-          {piecesIndex === 0 ? `${price} ₽` : `${price * 2} ₽`}
-        </div>
+        <div className="sushi-block__price">{`${activePrice} ₽`}</div>
         <button className="button button--outline button--add" onClick={handleAddItem}>
           <svg
             width="12"
