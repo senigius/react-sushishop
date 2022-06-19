@@ -1,36 +1,24 @@
-import { useEffect, useState } from 'react';
-import Categories from './components/Categories';
+import React from 'react';
+import { Routes, Route } from 'react-router';
+
 import Header from './components/Header';
-import Item from './components/Item';
-import Sort from './components/Sort';
+import Cart from './pages/Cart';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+import routes from './routes';
 
 const App = () => {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    fetch('https://62ac9b539fa81d00a7b5e700.mockapi.io/items')
-      .then((response) => response.json())
-      .then((data) => {
-        setItems(data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
   return (
     <div className="wrapper">
       <Header />
       <div className="content">
         <div className="container">
-          <div className="content__top">
-            <Categories />
-            <Sort />
-          </div>
-          <h2 className="content__title">aboba</h2>
-          <div className="content__items">
-            {items.map((item) => (
-              <Item {...item} key={item.id} />
-            ))}
-          </div>
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route path={routes.cartPage()} element={<Cart />} />
+            <Route path={routes.notFoundPage()} element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </div>
       </div>
     </div>
