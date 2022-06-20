@@ -1,27 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { SearchContext } from '../App';
 
 import Categories from '../components/Categories';
 import Item from '../components/ItemBlock';
 import Skeleton from '../components/ItemBlock/Skeleton';
+import Pagination from '../components/Pagination';
 import Sort from '../components/Sort';
 
 const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
   const [categoryId, setCategoryId] = useState(0);
   const [sortType, setSortType] = useState({
     name: 'популярности',
     propertyName: 'rating',
   });
 
+  const { seacrhValue } = useContext(SearchContext);
+
   useEffect(() => {
     setIsLoading(true);
-
     const category = categoryId > 0 ? `category=${categoryId}` : '';
+    const search = seacrhValue ? `&search=${seacrhValue}` : '';
 
     fetch(
-      `https://62ac9b539fa81d00a7b5e700.mockapi.io/items?${category}&sortBy=${sortType.propertyName}&order=desc`,
+      `https://62ac9b539fa81d00a7b5e700.mockapi.io/items?${category}${search}&sortBy=${sortType.propertyName}&order=desc`,
     )
       .then((response) => response.json())
       .then((data) => {
@@ -29,8 +32,8 @@ const Home = () => {
         setIsLoading(false);
       })
       .catch((err) => console.error(err));
-    window.scrollTo(0, 0);
-  }, [categoryId, sortType]);
+    window.scrollTo(20, 0);
+  }, [categoryId, sortType, seacrhValue]);
 
   return (
     <>
@@ -43,6 +46,7 @@ const Home = () => {
           ? [...new Array(8)].map((_, index) => <Skeleton key={index} />)
           : items.map((item) => <Item {...item} key={item.id} />)}
       </div>
+      <Pagination />
     </>
   );
 };

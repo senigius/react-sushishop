@@ -1,53 +1,64 @@
-@import '../variables';
+@import '../../styles/variables';
 
-.sushi-block {
+.block {
   width: 280px;
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 
-  &-container {
+  .container {
     display: flex;
     justify-content: center;
   }
   
-  &__image {
+  .image {
     width: 280px;
     height: 200px;
   }
 
-  &__title {
+  .title {
     height: 40px;
     font-size: 20px;
     font-weight: 900;
     margin-bottom: 20px;
   }
 
-  &__selector {
+  .selector {
     display: flex;
-    height: 165px;
-    background-color: #f3f3f3;
+    background-color: rgb(243, 243, 243);
     border-radius: 10px;
     flex-direction: column;
     padding: 15px;
 
-    b {
+    .description {
+      display: block;
+      align-items: center;
       margin-top: 5px;
+
+      .hidden {
+        display: none;
+      }
+
+      &:hover {
+        .hidden {
+          display: flex;
+          width: 100px;
+          background-color: rgb(243, 243, 243);
+          position: absolute;
+        }
+      }
     }
 
     ul {
       display: flex;
-
-      &:first-of-type {
-        margin-bottom: 6px;
-      }
+      border: 1px solid $pink;
+      border-radius: 5px;
 
       li {
         padding: 8px;
         flex: 1;
         cursor: pointer;
         font-weight: 600;
-        font-size: 14px;
-        @include noselect();
+        font-size: 15px;
 
         &.active {
           background: #ffffff;
@@ -59,7 +70,7 @@
     }
   }
 
-  &__bottom {
+  .bottom {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -67,7 +78,7 @@
     margin-left: 20px;
   }
 
-  &__price {
+  .price {
     font-weight: bold;
     font-size: 22px;
     line-height: 30px;

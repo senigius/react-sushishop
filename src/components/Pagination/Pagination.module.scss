@@ -1,0 +1,31 @@
+@import '../../styles/variables';
+
+.root {
+  li {
+    display: inline-block;
+  }
+
+  a {
+    display: inline-block;
+    text-align: center;
+    width: 50px;
+    line-height:45px;
+    height: 50px;
+    border: 1px solid $pink;
+    border-radius: 30px;
+    margin-right: 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $background;
+    }
+  }
+
+  :global {
+    .selected {
+      a {
+        background-color: $background;
+      }
+    }
+  }
+}

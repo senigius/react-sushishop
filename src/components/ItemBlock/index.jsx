@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import styles from './ItemBlock.module.scss';
+
 const Item = ({ title, sizes, ingredients, weight, price, category, img }) => {
   const [count, setCount] = useState(null);
   const [piecesIndex, setPiecesIndex] = useState(0);
@@ -15,26 +17,29 @@ const Item = ({ title, sizes, ingredients, weight, price, category, img }) => {
   const imagePath = `../assets/images/products/${img}`;
 
   return (
-    <div className="sushi-block-container">
-      <div className="sushi-block">
-        <img className="sushi-block__image" src={imagePath} alt="sushi" />
-        <h4 className="sushi-block__title">{title}</h4>
-        <div className="sushi-block__selector">
+    <div className={styles.container}>
+      <div className={styles.block}>
+        <img className={styles.image} src={imagePath} alt="sushi" />
+        <h4 className={styles.title}>{title}</h4>
+        <div className={styles.selector}>
           <ul>
             {sizes.map((size, i) => (
               <li
-                className={piecesIndex === i ? 'active' : ''}
+                className={piecesIndex === i ? styles.active : ''}
                 key={i}
                 onClick={() => handleChangePiecesValue(i)}
               >{`${size} шт.`}</li>
             ))}
           </ul>
-          <span>{`Вес ${weight} гр.`}</span>
-          <b>Состав:</b>
-          <span>{ingredients.join(', ')}</span>
+          <div className={styles.description}>
+            <b>Подробнее</b>
+            <span className={styles.hidden}>
+              Состав: {ingredients.join(', ')} {`Вес ${weight} гр.`}
+            </span>
+          </div>
         </div>
-        <div className="sushi-block__bottom">
-          <div className="sushi-block__price">{`${activePrice} ₽`}</div>
+        <div className={styles.bottom}>
+          <div className={styles.price}>{`${activePrice} ₽`}</div>
           <button className="button button--outline button--add" onClick={handleAddItem}>
             <svg
               width="12"
