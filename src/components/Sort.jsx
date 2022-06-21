@@ -1,12 +1,25 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Sort = ({ value, onChangeSortType }) => {
+import { getSortType } from '../slices/selectors';
+import { actions as filterActions } from '../slices/filterSlice';
+
+const sortValues = [
+  { sortName: 'популярности', propertyName: 'rating' },
+  { sortName: 'цене', propertyName: 'price' },
+  { sortName: 'названию', propertyName: 'label' },
+];
+
+const Sort = () => {
+  const dispatch = useDispatch();
   const [popupIsOpen, setPopupIsOpen] = useState(false);
-  const sortValues = [
-    { name: 'популярности', propertyName: 'rating' },
-    { name: 'цене', propertyName: 'price' },
-    { name: 'названию', propertyName: 'label' },
-  ];
+
+  const { sortName } = useSelector(getSortType);
+
+  const handleChangeSort = (value) => {
+    dispatch(filterActions.setSortType(value));
+    setPopupIsOpen(false);
+  };
 
   return (
     <div className="sort">
@@ -24,21 +37,18 @@ const Sort = ({ value, onChangeSortType }) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setPopupIsOpen(!popupIsOpen)}>{value.name}</span>
+        <span onClick={() => setPopupIsOpen(!popupIsOpen)}>{sortName}</span>
       </div>
       {popupIsOpen && (
         <div className="sort__popup">
           <ul>
-            {sortValues.map(({ name, propertyName }, index) => (
+            {sortValues.map((value, index) => (
               <li
                 key={index}
-                onClick={() => {
-                  onChangeSortType({ name, propertyName });
-                  setPopupIsOpen(false);
-                }}
-                className={propertyName === value.name ? 'active' : ''}
+                onClick={() => handleChangeSort(value)}
+                className={value.propertyName === sortName ? 'active' : ''}
               >
-                {name}
+                {value.sortName}
               </li>
             ))}
           </ul>
