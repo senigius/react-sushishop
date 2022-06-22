@@ -1,22 +1,28 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
+import { useSelector } from 'react-redux';
+
+import { getPageCount } from '../../slices/selectors';
 
 import styles from './Pagination.module.scss';
 
-const Pagination = () => {
+const Pagination = ({ currentPage, onChangePage }) => {
+  const pageCount = useSelector(getPageCount);
+
   return (
-    <>
-      <ReactPaginate
-        className={styles.root}
-        breakLabel="..."
-        nextLabel=">"
-        onPageChange={() => {}}
-        pageRangeDisplayed={5}
-        pageCount={3}
-        previousLabel="<"
-        renderOnZeroPageCount={null}
-      />
-    </>
+    <ReactPaginate
+      className={styles.root}
+      breakLabel="..."
+      nextLabel=">"
+      previousLabel="<"
+      onPageChange={(e) => {
+        onChangePage(e.selected + 1);
+      }}
+      pageRangeDisplayed={4}
+      pageCount={pageCount}
+      forcePage={currentPage - 1}
+      renderOnZeroPageCount={null}
+    />
   );
 };
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSortType } from '../slices/selectors';
 import { actions as filterActions } from '../slices/filterSlice';
 
-const sortValues = [
+export const sortValues = [
   { sortName: 'популярности', propertyName: 'rating' },
   { sortName: 'цене', propertyName: 'price' },
   { sortName: 'названию', propertyName: 'label' },
