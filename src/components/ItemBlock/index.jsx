@@ -1,13 +1,27 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
+import { actions as cartActions } from '../../slices/cartSlice';
 import styles from './ItemBlock.module.scss';
 
-const Item = ({ title, sizes, ingredients, weight, price, category, img }) => {
-  const [count, setCount] = useState(null);
+const Item = ({ id, title, sizes, ingredients, weight, price, img }) => {
+  const [count, setCount] = useState('');
   const [piecesIndex, setPiecesIndex] = useState(0);
   const [activePrice, setActivePrice] = useState(price);
+  const dispatch = useDispatch();
 
-  const handleAddItem = () => setCount(count + 1);
+  const handleAddItem = () => {
+    dispatch(
+      cartActions.addItem({
+        id,
+        title,
+        size: sizes[piecesIndex],
+        price: activePrice,
+        img,
+      }),
+    );
+    setCount(count + 1);
+  };
 
   const handleChangePiecesValue = (index) => {
     setPiecesIndex(index);
