@@ -113,6 +113,9 @@ body {
   }
 
   &__clear {
+    border: none;
+    outline: none;
+    background: none;
     display: flex;
     align-items: center;
     cursor: pointer;

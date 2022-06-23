@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import logo from '../assets/images/sushiLogo.svg';
-import { getCartItems, getCartPrice } from '../slices/selectors';
+import { getCartItemsCount, getCartPrice } from '../slices/selectors';
 import Search from './Search';
 
 const Header = () => {
   const cartPrice = useSelector(getCartPrice);
-  const cartItemsCount = useSelector(getCartItems).length;
+  const cartItemsCount = useSelector(getCartItemsCount);
 
   return (
     <div className="header">

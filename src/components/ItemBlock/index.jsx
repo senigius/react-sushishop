@@ -1,34 +1,36 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { actions as cartActions } from '../../slices/cartSlice';
+import { getCurrentItems } from '../../slices/selectors';
+import routes from '../../routes';
 import styles from './ItemBlock.module.scss';
 
 const Item = ({ id, title, sizes, ingredients, weight, price, img }) => {
-  const [count, setCount] = useState('');
-  const [piecesIndex, setPiecesIndex] = useState(0);
+  const [sizeIndex, setSizeIndex] = useState(0);
   const [activePrice, setActivePrice] = useState(price);
   const dispatch = useDispatch();
+  const currentItems = useSelector(getCurrentItems(id));
+  const count = currentItems.reduce((acc, item) => item.count + acc, 0);
 
   const handleAddItem = () => {
     dispatch(
       cartActions.addItem({
         id,
         title,
-        size: sizes[piecesIndex],
+        size: sizes[sizeIndex],
         price: activePrice,
         img,
       }),
     );
-    setCount(count + 1);
   };
 
   const handleChangePiecesValue = (index) => {
-    setPiecesIndex(index);
+    setSizeIndex(index);
     index === 0 ? setActivePrice(price) : setActivePrice(price * 2);
   };
 
-  const imagePath = `../assets/images/products/${img}`;
+  const imagePath = routes.getImagePath(img);
 
   return (
     <div className={styles.container}>
@@ -39,7 +41,7 @@ const Item = ({ id, title, sizes, ingredients, weight, price, img }) => {
           <ul>
             {sizes.map((size, i) => (
               <li
-                className={piecesIndex === i ? styles.active : ''}
+                className={sizeIndex === i ? styles.active : ''}
                 key={i}
                 onClick={() => handleChangePiecesValue(i)}
               >{`${size} шт.`}</li>

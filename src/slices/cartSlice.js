@@ -10,7 +10,9 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem(state, { payload }) {
-      const findItem = state.items.find((item) => item.id === payload.id);
+      const findItem = state.items.find(
+        (item) => item.id === payload.id && item.size === payload.size,
+      );
 
       if (findItem) {
         findItem.count += 1;
@@ -23,10 +25,15 @@ const cartSlice = createSlice({
       state.cartPrice += payload.price;
     },
     removeOneItem(state, { payload }) {
-      state.items = state.items.filter((item) => item.id !== payload);
+      const findItem = state.items.find(
+        (item) => item.id === payload.id && item.size === payload.size,
+      );
+
+      findItem.count -= 1;
     },
     removeAllItems(state) {
       state.items = [];
+      state.cartPrice = 0;
     },
   },
 });
