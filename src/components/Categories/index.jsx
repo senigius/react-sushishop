@@ -1,8 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { actions as filterActions } from '../slices/filterSlice.js';
-import { getCategoryId } from '../slices/selectors.js';
+import { actions as filterActions } from '../../slices/filterSlice.js';
+import { getCategoryId } from '../../slices/selectors.js';
+
+import styles from './Categories.module.scss';
 
 const categoriesArr = ['Все', 'Суши', 'Запеченные суши', 'Острые суши', 'Сашими'];
 
@@ -11,12 +13,12 @@ const Categories = () => {
   const categoryId = useSelector(getCategoryId);
 
   return (
-    <div className="categories">
+    <div className={styles.root}>
       <ul>
         {categoriesArr.map((item, index) => {
           return (
             <li
-              className={categoryId === index ? 'active' : ''}
+              className={categoryId === index ? styles.active : ''}
               key={index}
               onClick={() => dispatch(filterActions.setCategoryId(index))}
             >

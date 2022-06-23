@@ -24,10 +24,6 @@ body {
 .content {
   padding: 20px 0;
 
-  &__title {
-    margin: 35px 0;
-  }
-
   &__items {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -55,15 +51,6 @@ body {
 
     @media (max-width: 1000px) {
       flex-direction: column;
-
-      .categories {
-        margin-bottom: 30px;
-
-        ul {
-          justify-content: center;
-          flex-wrap: wrap;
-        }
-      }
     }
   }
 }

@@ -27,7 +27,7 @@ const Item = ({ id, title, sizes, ingredients, weight, price, img }) => {
 
   const handleChangePiecesValue = (index) => {
     setSizeIndex(index);
-    index === 0 ? setActivePrice(price) : setActivePrice(price * 2);
+    index === 0 ? setActivePrice(price) : setActivePrice(Math.ceil(price * 1.8));
   };
 
   const imagePath = routes.getImagePath(img);
@@ -50,7 +50,16 @@ const Item = ({ id, title, sizes, ingredients, weight, price, img }) => {
           <div className={styles.description}>
             <b>Подробнее</b>
             <span className={styles.hidden}>
-              Состав: {ingredients.join(', ')} {`Вес ${weight} гр.`}
+              <ul>
+                <li>
+                  <b>Состав:</b>
+                  <span>{ingredients.join(', ')}</span>
+                </li>
+                <li>
+                  <b>Вес:</b>
+                  <span>{weight} гр.</span>
+                </li>
+              </ul>
             </span>
           </div>
         </div>
@@ -70,7 +79,7 @@ const Item = ({ id, title, sizes, ingredients, weight, price, img }) => {
               />
             </svg>
             <span>Добавить</span>
-            {count && <i>{count}</i>}
+            {count > 0 && <i>{count}</i>}
           </button>
         </div>
       </div>

@@ -34,6 +34,7 @@
       display: block;
       align-items: center;
       margin-top: 5px;
+      text-decoration: underline;
 
       .hidden {
         display: none;
@@ -41,10 +42,17 @@
 
       &:hover {
         .hidden {
-          display: flex;
-          width: 100px;
+          display: block;
+          width: 300px;
           background-color: rgb(243, 243, 243);
           position: absolute;
+          margin-top: 20px;
+          z-index: 1;
+
+          span {
+            width: 100px;
+            padding: 0 5px;
+          }
         }
       }
     }

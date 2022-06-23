@@ -65,7 +65,7 @@ const Home = () => {
     }
 
     haveSearchParams.current = false;
-    window.scrollTo(0, 40);
+    window.scrollTo(0, 0);
   }, [categoryId, currentPage, propertyName, seacrhValue]);
 
   useEffect(() => {

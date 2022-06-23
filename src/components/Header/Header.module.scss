@@ -1,11 +1,14 @@
+@import '../../styles/variables';
+
 .header {
   border-bottom: 1px solid $gray-line;
-  padding: 40px 0;
+  padding: 40px 0px;
 
   .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 0 70px;
 
     @media (max-width: 750px) {
       display: flex;
@@ -13,7 +16,7 @@
     }
   }
 
-  &__logo {
+  .logo {
     display: flex;
 
     img {

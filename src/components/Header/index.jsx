@@ -2,19 +2,21 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import logo from '../assets/images/sushiLogo.svg';
-import { getCartItemsCount, getCartPrice } from '../slices/selectors';
-import Search from './Search';
+import logo from '../../assets/images/sushiLogo.svg';
+import { getCartItemsCount, getCartPrice } from '../../slices/selectors';
+import Search from '../Search';
+
+import styles from './Header.module.scss';
 
 const Header = () => {
   const cartPrice = useSelector(getCartPrice);
   const cartItemsCount = useSelector(getCartItemsCount);
 
   return (
-    <div className="header">
-      <div className="container">
+    <div className={styles.header}>
+      <div className={styles.container}>
         <Link to="/">
-          <div className="header__logo">
+          <div className={styles.logo}>
             <img width="38" src={logo} alt="logo" />
             <div>
               <h1>React SushiShop</h1>
@@ -22,7 +24,6 @@ const Header = () => {
           </div>
         </Link>
         <Search />
-        <div className="header__cart"></div>
         <div className="header__cart">
           <Link to="cart" className="button button--cart">
             <span>{cartPrice} ₽</span>
