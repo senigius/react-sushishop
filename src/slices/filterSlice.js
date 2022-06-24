@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  searchValue: '',
   categoryId: 0,
   currentPage: 1,
   pageCount: 3,
@@ -26,6 +27,9 @@ const filterSlice = createSlice({
     },
     setPageCount(state, { payload }) {
       state.pageCount = payload;
+    },
+    setSearchValue(state, { payload }) {
+      state.searchValue = payload;
     },
     setFilters(state, { payload }) {
       state.currentPage = Number(payload.currentPage);

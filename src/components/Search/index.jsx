@@ -1,12 +1,13 @@
-import React, { useCallback, useContext, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import debounce from 'lodash.debounce';
 
-import { SearchContext } from '../../App';
+import { actions as filterActions } from '../../slices/filterSlice';
 import styles from './Search.module.scss';
 
 const Search = () => {
+  const dispatch = useDispatch();
   const [localValue, setLocalValue] = useState('');
-  const { setSeacrhValue } = useContext(SearchContext);
   const inputRef = useRef();
 
   const handleChangeSearchValue = ({ target: { value } }) => {
@@ -16,14 +17,14 @@ const Search = () => {
 
   const handleClearSearchValue = () => {
     setLocalValue('');
-    setSeacrhValue('');
+    dispatch(filterActions.setSearchValue(''));
     inputRef.current.focus();
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const searchDebounce = useCallback(
     debounce((localValue) => {
-      setSeacrhValue(localValue);
+      dispatch(filterActions.setSearchValue(localValue));
     }, 666),
     [],
   );

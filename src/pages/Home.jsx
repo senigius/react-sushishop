@@ -1,9 +1,8 @@
-import React, { useEffect, useContext, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import qs from 'qs';
 
-import { SearchContext } from '../App';
 import Categories from '../components/Categories';
 import Item from '../components/ItemBlock';
 import Skeleton from '../components/ItemBlock/Skeleton';
@@ -15,6 +14,7 @@ import {
   getCurrentPage,
   getProducts,
   getStatus,
+  getSearchValue,
 } from '../slices/selectors';
 import { actions as filterActions } from '../slices/filterSlice';
 import { fetchProducts } from '../slices/productsSlice';
@@ -30,7 +30,7 @@ const Home = () => {
   const categoryId = useSelector(getCategoryId);
   const { propertyName } = useSelector(getSortType);
   const currentPage = useSelector(getCurrentPage);
-  const { seacrhValue } = useContext(SearchContext);
+  const searchValue = useSelector(getSearchValue);
 
   const onChangePage = (num) => {
     dispatch(filterActions.setCurrentPage(num));
@@ -54,7 +54,7 @@ const Home = () => {
   useEffect(() => {
     if (!haveSearchParams.current) {
       const category = categoryId > 0 ? `category=${categoryId}` : '';
-      const search = seacrhValue ? `&search=${seacrhValue}` : '';
+      const search = searchValue ? `&search=${searchValue}` : '';
       // const changePageCount = (length) => dispatch(filterActions.setPageCount(Math.ceil(length / 8)));
 
       dispatch(fetchProducts({ currentPage, category, search, propertyName }));
@@ -62,7 +62,7 @@ const Home = () => {
 
     haveSearchParams.current = false;
     window.scrollTo(0, 0);
-  }, [categoryId, currentPage, dispatch, propertyName, seacrhValue]);
+  }, [categoryId, currentPage, dispatch, propertyName, searchValue]);
 
   useEffect(() => {
     if (isMounted.current) {

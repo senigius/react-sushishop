@@ -2,6 +2,7 @@ export const getCategoryId = (state) => state.filter.categoryId;
 export const getSortType = (state) => state.filter.sortType;
 export const getCurrentPage = (state) => state.filter.currentPage;
 export const getPageCount = (state) => state.filter.pageCount;
+export const getSearchValue = (state) => state.filter.searchValue;
 
 export const getCartPrice = (state) => state.cart.totalPrice;
 export const getCartItems = (state) => state.cart.items;
