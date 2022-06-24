@@ -6,6 +6,7 @@ import uniqueId from 'lodash.uniqueid';
 import CartItem from '../components/CartItem';
 import { actions as cartActions } from '../slices/cartSlice';
 import { getCartItems, getCartItemsCount, getCartPrice } from '../slices/selectors';
+import EmptyCart from '../components/EmptyCart';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -14,8 +15,14 @@ const Cart = () => {
   const count = useSelector(getCartItemsCount);
 
   const handleClearCart = () => {
-    dispatch(cartActions.removeAllItems());
+    if (window.confirm('Очистить корзину?')) {
+      dispatch(cartActions.clearCart());
+    }
   };
+
+  if (items.length === 0) {
+    return <EmptyCart />;
+  }
 
   return (
     <div className="container container--cart">

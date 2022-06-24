@@ -24,6 +24,22 @@ body {
 .content {
   padding: 20px 0;
 
+  &__error-info {
+    margin: 60px auto;
+    width: 400px;
+    text-align: center;
+
+    h2 {
+      font-size: 28px;
+      font-weight: 600px;
+      margin: 15px 0;
+    }
+
+    p {
+      font-size: 18px;
+    }
+  }
+
   &__items {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -301,7 +317,7 @@ body {
   }
 
   &--empty {
-    margin: 0 auto;
+    margin: 40px auto;
     width: 560px;
     text-align: center;
 

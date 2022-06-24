@@ -1,9 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  cartPrice: 0,
+  totalPrice: 0,
   items: [],
 };
+
+const updateTotalPrice = (state) =>
+  state.items.reduce((acc, item) => item.count * item.price + acc, 0);
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -22,7 +25,7 @@ const cartSlice = createSlice({
           count: 1,
         });
       }
-      state.cartPrice += payload.price;
+      state.totalPrice = updateTotalPrice(state);
     },
     removeOneItem(state, { payload }) {
       const findItem = state.items.find(
@@ -30,10 +33,18 @@ const cartSlice = createSlice({
       );
 
       findItem.count -= 1;
+      state.totalPrice = updateTotalPrice(state);
     },
-    removeAllItems(state) {
+    removeAllCurrentItems(state, { payload }) {
+      state.items = state.items.filter(
+        (item) => !(item.size === payload.size && item.id === payload.id),
+      );
+
+      state.totalPrice = updateTotalPrice(state);
+    },
+    clearCart(state) {
       state.items = [];
-      state.cartPrice = 0;
+      state.totalPrice = 0;
     },
   },
 });

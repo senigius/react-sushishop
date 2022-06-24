@@ -13,8 +13,14 @@ const CartItem = ({ id, title, size, price, img, count }) => {
     dispatch(cartActions.addItem({ id, size, price }));
   };
 
-  const handleRemoveItem = () => {
+  const handleRemoveOneItem = () => {
     dispatch(cartActions.removeOneItem({ id, size }));
+  };
+
+  const handleRemoveAllItems = () => {
+    if (window.confirm('Удалить товар из корзины?')) {
+      dispatch(cartActions.removeAllCurrentItems({ id, size }));
+    }
   };
 
   return (
@@ -28,7 +34,7 @@ const CartItem = ({ id, title, size, price, img, count }) => {
       </div>
       <div className="cart__item-count">
         <button
-          onClick={handleRemoveItem}
+          onClick={handleRemoveOneItem}
           disabled={count <= 1}
           className="button button--outline button--circle cart__item-count-minus"
         >
@@ -76,7 +82,7 @@ const CartItem = ({ id, title, size, price, img, count }) => {
         <b>{price} ₽</b>
       </div>
       <div className="cart__item-remove">
-        <button className="button button--outline button--circle">
+        <button onClick={handleRemoveAllItems} className="button button--outline button--circle">
           <svg
             width="10"
             height="10"
