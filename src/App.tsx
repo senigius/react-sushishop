@@ -14,7 +14,7 @@ const App = () => {
       <div className="content">
         <div className="container">
           <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path={routes.cartPage()} element={<Cart />} />
             <Route path={routes.notFoundPage()} element={<NotFound />} />
             <Route path="*" element={<NotFound />} />

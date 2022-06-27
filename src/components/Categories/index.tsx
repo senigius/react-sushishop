@@ -1,14 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { actions as filterActions } from '../../slices/filterSlice.js';
-import { getCategoryId } from '../../slices/selectors.js';
+import { actions as filterActions } from '../../slices/filterSlice';
+import { getCategoryId } from '../../slices/selectors';
 
 import styles from './Categories.module.scss';
 
-const categoriesArr = ['Все', 'Суши', 'Запеченные суши', 'Острые суши', 'Сашими'];
+const categoriesArr: string[] = ['Все', 'Суши', 'Запеченные суши', 'Острые суши', 'Сашими'];
 
-const Categories = () => {
+const Categories: React.FC = () => {
   const dispatch = useDispatch();
   const categoryId = useSelector(getCategoryId);
 

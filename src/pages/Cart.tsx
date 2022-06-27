@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import uniqueId from 'lodash.uniqueid';
 
-import CartItem from '../components/CartItem';
 import { actions as cartActions } from '../slices/cartSlice';
 import { getCartItems, getCartItemsCount, getCartPrice } from '../slices/selectors';
 import EmptyCart from '../components/EmptyCart';
+import CartItemBlock from '../components/CartItemBlock';
 
-const Cart = () => {
+const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const items = useSelector(getCartItems);
   const price = useSelector(getCartPrice);
@@ -102,7 +102,7 @@ const Cart = () => {
         </div>
         <div className="content__items">
           {items.map((item) => (
-            <CartItem {...item} key={uniqueId()} />
+            <CartItemBlock {...item} key={uniqueId()} />
           ))}
         </div>
         <div className="cart__bottom">

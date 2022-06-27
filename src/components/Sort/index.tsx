@@ -2,30 +2,34 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getSortType } from '../../slices/selectors';
-import { actions as filterActions } from '../../slices/filterSlice';
+import { actions as filterActions, TSortValues } from '../../slices/filterSlice';
 
 import styles from './Sort.module.scss';
 
-export const sortValues = [
-  { sortName: 'популярности', propertyName: 'rating' },
-  { sortName: 'цене', propertyName: 'price' },
-  { sortName: 'названию', propertyName: 'label' },
+export const sortValues: TSortValues[] = [
+  { sortName: 'популярное', propertyName: 'rating', order: 'desc' },
+  { sortName: 'сначала дешевле', propertyName: 'price', order: 'asc' },
+  { sortName: 'сначала дороже', propertyName: 'price', order: 'desc' },
 ];
 
 const Sort = () => {
   const dispatch = useDispatch();
   const [popupIsOpen, setPopupIsOpen] = useState(false);
-  const sortFieldRef = useRef();
+  const sortFieldRef = useRef<HTMLDivElement>(null);
   const { sortName } = useSelector(getSortType);
 
-  const handleChangeSort = (value) => {
-    dispatch(filterActions.setSortType(value));
+  const handleChangeSort = (obj: TSortValues) => {
+    dispatch(filterActions.setSortType(obj));
     setPopupIsOpen(false);
   };
 
   useEffect(() => {
-    const handleClosePopup = (e) => {
-      if (!e.composedPath().includes(sortFieldRef.current)) {
+    const handleClosePopup = (e: MouseEvent) => {
+      const _e = e as MouseEvent & {
+        composedPath: Node[];
+      }
+
+      if (sortFieldRef.current && !_e.composedPath().includes(sortFieldRef.current)) {
         setPopupIsOpen(false);
       }
     };
@@ -52,7 +56,7 @@ const Sort = () => {
             fill="#2C2C2C"
           />
         </svg>
-        <b>Сортировка по:</b>
+        <b>Сортировать:</b>
         <span onClick={() => setPopupIsOpen(!popupIsOpen)}>{sortName}</span>
       </div>
       {popupIsOpen && (

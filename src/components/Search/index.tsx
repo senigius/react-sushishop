@@ -5,28 +5,28 @@ import debounce from 'lodash.debounce';
 import { actions as filterActions } from '../../slices/filterSlice';
 import styles from './Search.module.scss';
 
-const Search = () => {
+const Search: React.FC = () => {
   const dispatch = useDispatch();
-  const [localValue, setLocalValue] = useState('');
-  const inputRef = useRef();
+  const [localValue, setLocalValue] = useState<string>('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleChangeSearchValue = ({ target: { value } }) => {
-    setLocalValue(value);
-    searchDebounce(value);
+  const handleChangeSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLocalValue(e.currentTarget.value);
+    searchDebounce();
   };
 
   const handleClearSearchValue = () => {
     setLocalValue('');
     dispatch(filterActions.setSearchValue(''));
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const searchDebounce = useCallback(
-    debounce((localValue) => {
+    debounce(() => {
       dispatch(filterActions.setSearchValue(localValue));
     }, 666),
-    [],
+    [dispatch, localValue],
   );
 
   return (

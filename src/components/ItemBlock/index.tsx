@@ -5,8 +5,9 @@ import { actions as cartActions } from '../../slices/cartSlice';
 import { getCurrentItems } from '../../slices/selectors';
 import routes from '../../routes';
 import styles from './ItemBlock.module.scss';
+import { TProduct } from '../../slices/productsSlice';
 
-const Item = ({ id, title, sizes, ingredients, weight, price, img }) => {
+const Item: React.FC<TProduct> = ({ id, title, sizes, ingredients, weight, price, img }) => {
   const [sizeIndex, setSizeIndex] = useState(0);
   const [activePrice, setActivePrice] = useState(price);
   const dispatch = useDispatch();
@@ -21,11 +22,12 @@ const Item = ({ id, title, sizes, ingredients, weight, price, img }) => {
         size: sizes[sizeIndex],
         price: activePrice,
         img,
+        count: 0
       }),
     );
   };
 
-  const handleChangePiecesValue = (index) => {
+  const handleChangePiecesValue = (index: number) => {
     setSizeIndex(index);
     index === 0 ? setActivePrice(price) : setActivePrice(Math.ceil(price * 1.8));
   };

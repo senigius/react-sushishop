@@ -1,25 +1,26 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { actions as cartActions } from '../../slices/cartSlice';
+import { actions as cartActions, TCartItem } from '../../slices/cartSlice';
 
 import routes from '../../routes';
 
-const CartItem = ({ id, title, size, price, img, count }) => {
+const CartItemBlock: React.FC<TCartItem> = (props) => {
+  const { title, size, price, img = '', count = 0 } = props;
   const dispatch = useDispatch();
   const imagePath = routes.getImagePath(img);
 
   const handleAddItem = () => {
-    dispatch(cartActions.addItem({ id, size, price }));
+    dispatch(cartActions.addItem(props));
   };
 
   const handleRemoveOneItem = () => {
-    dispatch(cartActions.removeOneItem({ id, size }));
+    dispatch(cartActions.removeOneItem(props));
   };
 
   const handleRemoveAllItems = () => {
     if (window.confirm('Удалить товар из корзины?')) {
-      dispatch(cartActions.removeAllCurrentItems({ id, size }));
+      dispatch(cartActions.removeAllCurrentItems(props));
     }
   };
 
@@ -105,4 +106,4 @@ const CartItem = ({ id, title, size, price, img, count }) => {
   );
 };
 
-export default CartItem;
+export default CartItemBlock;

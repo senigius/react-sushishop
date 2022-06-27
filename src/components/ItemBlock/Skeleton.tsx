@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const Skeleton = (props) => (
+const Skeleton = () => (
   <ContentLoader
     className="sushi-block"
     speed={2}
@@ -10,7 +10,6 @@ const Skeleton = (props) => (
     viewBox="0 0 280 492"
     backgroundColor="#f3f3f3"
     foregroundColor="#ecebeb"
-    {...props}
   >
     <rect x="64" y="145" rx="0" ry="0" width="114" height="20" />
     <rect x="56" y="209" rx="0" ry="0" width="164" height="36" />

@@ -6,8 +6,13 @@ import { getPageCount } from '../../slices/selectors';
 
 import styles from './Pagination.module.scss';
 
-const Pagination = ({ currentPage, onChangePage }) => {
-  const pageCount = useSelector(getPageCount);
+type PaginationProps = {
+  currentPage: number;
+  onChangePage: (page: number) => void;
+};
+
+const Pagination: React.FC<PaginationProps> = ({ currentPage, onChangePage }) => {
+  const pageCount: number = useSelector(getPageCount);
 
   return (
     <ReactPaginate
@@ -21,7 +26,6 @@ const Pagination = ({ currentPage, onChangePage }) => {
       pageRangeDisplayed={4}
       pageCount={pageCount}
       forcePage={currentPage - 1}
-      renderOnZeroPageCount={null}
     />
   );
 };
