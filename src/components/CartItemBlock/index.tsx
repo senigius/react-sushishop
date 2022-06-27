@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import cn from 'classnames';
 
 import { actions as cartActions, TCartItem } from '../../slices/cartSlice';
 
@@ -24,6 +25,14 @@ const CartItemBlock: React.FC<TCartItem> = (props) => {
     }
   };
 
+  const buttonCN = cn({
+    'button': true,
+    'button--outline': true,
+    'button--circle': true,
+    'cart__item-count-minus': true,
+    'disabled': count <= 1,
+  });
+
   return (
     <div className="cart__item">
       <div className="cart__item-img">
@@ -37,7 +46,7 @@ const CartItemBlock: React.FC<TCartItem> = (props) => {
         <button
           onClick={handleRemoveOneItem}
           disabled={count <= 1}
-          className="button button--outline button--circle cart__item-count-minus"
+          className={buttonCN}
         >
           <svg
             width="10"

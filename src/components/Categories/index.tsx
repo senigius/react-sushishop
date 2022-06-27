@@ -12,6 +12,10 @@ const Categories: React.FC = () => {
   const dispatch = useDispatch();
   const categoryId = useSelector(getCategoryId);
 
+  const handleChangeCategory = (index: number) => {
+    dispatch(filterActions.setCategoryId(index))
+  };
+
   return (
     <div className={styles.root}>
       <ul>
@@ -20,7 +24,7 @@ const Categories: React.FC = () => {
             <li
               className={categoryId === index ? styles.active : ''}
               key={index}
-              onClick={() => dispatch(filterActions.setCategoryId(index))}
+              onClick={() => handleChangeCategory(index)}
             >
               {item}
             </li>
