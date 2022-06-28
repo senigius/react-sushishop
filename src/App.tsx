@@ -1,11 +1,12 @@
-import React from 'react';
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router';
 
 import Header from './components/Header';
-import Cart from './pages/Cart';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import routes from './routes';
+
+const Cart = lazy(() => import('./pages/Cart'));
 
 const App = () => {
   return (
@@ -15,7 +16,14 @@ const App = () => {
         <div className="container">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path={routes.cartPage()} element={<Cart />} />
+            <Route
+              path={routes.cartPage()}
+              element={
+                <Suspense>
+                  <Cart />
+                </Suspense>
+              }
+            />
             <Route path={routes.notFoundPage()} element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

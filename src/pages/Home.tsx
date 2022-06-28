@@ -41,7 +41,9 @@ const Home: React.FC = () => {
     const Qstr = window.location.search;
     if (Qstr) {
       const params = qs.parse(Qstr.substring(1));
-      const sortType = sortValues.find((item) => item.propertyName === params.propertyName && item.order === params.order);
+      const sortType = sortValues.find(
+        (item) => item.propertyName === params.propertyName && item.order === params.order,
+      );
 
       dispatch(
         filterActions.setFilters({
@@ -58,9 +60,16 @@ const Home: React.FC = () => {
       const search = searchValue ? `&search=${searchValue}` : '';
       const sortName = propertyName ? `&sortBy=${propertyName}` : '';
       const orderValue = order ? `&order=${order}` : '';
-      // const changePageCount = (length) => dispatch(filterActions.setPageCount(Math.ceil(length / 8)));
-      
-      dispatch(fetchProducts({ currentPage: currentPage.toString(), category, search, sortName, orderValue }));
+
+      dispatch(
+        fetchProducts({
+          currentPage: currentPage.toString(),
+          category,
+          search,
+          sortName,
+          orderValue,
+        }),
+      );
     }
 
     haveSearchParams.current = false;
@@ -80,11 +89,26 @@ const Home: React.FC = () => {
     isMounted.current = true;
   }, [categoryId, currentPage, navigate, order, propertyName]);
 
+  useEffect(() => {
+    const pageNumber = items.length / 8;
+    const pageCount = () => Math.ceil(pageNumber === 1 ? pageNumber + 1 : pageNumber);
+    dispatch(filterActions.setPageCount(pageCount()));
+  }, [dispatch, items.length]);
+
   if (status === Status.ERROR) {
     return (
       <div className="content__error-info">
         <h2>Ошибка сети</h2>
-        <p>Заходите попозже, всё починится!</p>
+        <p>Заходите попозже, мы скоро всё починим!</p>
+      </div>
+    );
+  }
+
+  if (status === Status.NOITEMS) {
+    return (
+      <div className="content__error-info">
+        <h2>К сожалению таких товаров у нас нет</h2>
+        <p>Попробуйте поменять название в поиске</p>
       </div>
     );
   }

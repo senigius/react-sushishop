@@ -9,6 +9,7 @@ export enum Status {
   LOADING = 'loading',
   SUCCESS = 'success',
   ERROR = 'network error',
+  NOITEMS = 'no-items',
 }
 
 export type TProduct = {
@@ -50,6 +51,9 @@ const productsSlice = createSlice({
     setItems(state, action: PayloadAction<TProduct[]>) {
       state.items = action.payload;
     },
+    setStatus(state, action:  PayloadAction<Status>) {
+      state.status = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -59,10 +63,15 @@ const productsSlice = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, { payload }) => {
         state.items = payload;
-        state.status = Status.SUCCESS;
+
+        if (payload.length > 0) {
+          state.status = Status.SUCCESS;
+        } else {
+          state.status = Status.NOITEMS;
+        }
       })
-      .addCase(fetchProducts.rejected, (state, action) => {
-        state.status = Status.ERROR; // TODO: handle network error
+      .addCase(fetchProducts.rejected, (state) => {
+        state.status = Status.ERROR;
         state.items = [];
       });
   },

@@ -12,7 +12,7 @@ type PaginationProps = {
 };
 
 const Pagination: React.FC<PaginationProps> = ({ currentPage, onChangePage }) => {
-  const pageCount: number = useSelector(getPageCount);
+  const pageCount = useSelector(getPageCount);
 
   return (
     <ReactPaginate

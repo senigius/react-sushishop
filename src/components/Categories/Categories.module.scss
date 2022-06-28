@@ -1,7 +1,9 @@
 @import '../../styles/variables';
 
 .root {
-  margin-bottom: 30px;
+  @media (max-width: 1000px) {
+    margin-bottom: 30px;
+  }
 
   ul {
     display: flex;
