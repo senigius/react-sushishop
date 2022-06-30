@@ -157,9 +157,9 @@ body {
     margin-top: 30px;
 
     @media (max-width: 930px) {
-      display: grid;
-      justify-content: start;
-      align-content: center;
+      display: inline-block;
+      margin: auto 10px;
+      width: auto;
     }
 
     &-img {
@@ -185,6 +185,10 @@ body {
       justify-content: center;
       width: 40%;
 
+      @media (max-width: 930px) {
+        width: auto;
+      }
+
       h3 {
         font-weight: bold;
         font-size: 22px;
@@ -203,6 +207,12 @@ body {
       align-items: center;
       justify-content: space-between;
       width: 13%;
+
+      @media (max-width: 930px) {
+        float: left;
+        width: auto;
+        padding-right: 5px;
+      }
 
       &-minus {
         svg {
@@ -235,6 +245,8 @@ body {
       @media (max-width: 930px) {
         float: left;
         justify-content: center;
+        width: auto;
+        float: left;
       }
 
       b {
@@ -253,6 +265,7 @@ body {
       @media (max-width: 930px) {
         float: left;
         justify-content: center;
+        padding-left: 5px;
         width: 13%;
       }
 
@@ -352,6 +365,10 @@ body {
     width: 560px;
     text-align: center;
 
+    @media (max-width: 700px) {
+      width: auto;
+    }
+
     h2 {
       font-size: 32px;
       margin-bottom: 10px;
@@ -373,6 +390,12 @@ body {
       display: block;
       width: 300px;
       margin: 45px auto 60px;
+
+      @media (max-width: 360px) {
+        margin: 0 auto;
+        height: 200px;
+        width: 240px;
+      }
     }
 
     .button--black {

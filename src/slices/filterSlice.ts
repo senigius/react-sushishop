@@ -33,6 +33,7 @@ const filterSlice = createSlice({
     setCategoryId(state, action: PayloadAction<number>) {
       state.categoryId = action.payload;
       state.currentPage = initialState.currentPage;
+      state.sortType = initialState.sortType;
     },
     setSortType(state, action: PayloadAction<TSortValues>) {
       state.sortType = action.payload;

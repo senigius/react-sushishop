@@ -38,6 +38,13 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
+    console.log(111);
+    if (isMounted) {
+      console.log(222);
+    }
+  }, [categoryId]);
+
+  useEffect(() => {
     const Qstr = window.location.search;
     if (Qstr) {
       const params = qs.parse(Qstr.substring(1));
@@ -89,12 +96,6 @@ const Home: React.FC = () => {
     isMounted.current = true;
   }, [categoryId, currentPage, navigate, order, propertyName]);
 
-  useEffect(() => {
-    const pageNumber = items.length / 8;
-    const pageCount = () => Math.ceil(pageNumber === 1 ? pageNumber + 1 : pageNumber);
-    dispatch(filterActions.setPageCount(pageCount()));
-  }, [dispatch, items.length]);
-
   if (status === Status.ERROR) {
     return (
       <div className="content__error-info">
@@ -106,10 +107,15 @@ const Home: React.FC = () => {
 
   if (status === Status.NOITEMS) {
     return (
-      <div className="content__error-info">
-        <h2>К сожалению таких товаров у нас нет</h2>
-        <p>Попробуйте поменять название в поиске</p>
-      </div>
+      <>
+        <div className="content__error-info">
+          <h2>
+            К сожалению таких товаров у нас нет, либо до сих пор хромает пагинация, просим прощения
+          </h2>
+          <p>Попробуйте поменять название в поиске</p>
+        </div>
+        <Pagination currentPage={currentPage} onChangePage={onChangePage} />
+      </>
     );
   }
 
