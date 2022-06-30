@@ -38,13 +38,6 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log(111);
-    if (isMounted) {
-      console.log(222);
-    }
-  }, [categoryId]);
-
-  useEffect(() => {
     const Qstr = window.location.search;
     if (Qstr) {
       const params = qs.parse(Qstr.substring(1));
