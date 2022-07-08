@@ -7,7 +7,7 @@ import Categories from '../components/Categories';
 import Item from '../components/ItemBlock';
 import Skeleton from '../components/ItemBlock/Skeleton';
 import Pagination from '../components/Pagination/index';
-import Sort, { sortValues } from '../components/Sort';
+import Sort from '../components/Sort';
 import {
   getCategoryId,
   getSortType,
@@ -17,8 +17,9 @@ import {
   getSearchValue,
 } from '../slices/selectors';
 import { actions as filterActions } from '../slices/filterSlice';
-import { fetchProducts, Status } from '../slices/productsSlice';
+import { fetchProducts } from '../slices/productsSlice';
 import { useAppDispatch } from '../slices';
+import { sortValues, Status } from '../constants';
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();

@@ -1,16 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { pageItemsLimit, Status } from '../constants';
 
 import routes from '../routes';
-
-const pageLimit = `&limit=${8}`;
-
-export enum Status {
-  LOADING = 'loading',
-  SUCCESS = 'success',
-  ERROR = 'network error',
-  NOITEMS = 'no-items',
-}
 
 export type TProduct = {
   category: number;
@@ -33,7 +25,7 @@ export const fetchProducts = createAsyncThunk<TProduct[], Record<string, string>
   'products/fetchProducts',
   async ({ currentPage, category, search, sortName, orderValue }) => {
     const { data } = await axios.get<TProduct[]>(
-      `${routes.getItems()}?page=${currentPage}${pageLimit}${category}${search}${sortName}${orderValue}`,
+      `${routes.getItems()}?page=${currentPage}${pageItemsLimit}${category}${search}${sortName}${orderValue}`,
     );
     return data;
   },

@@ -1,16 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getSortType } from '../../slices/selectors';
 import { actions as filterActions, TSortValues } from '../../slices/filterSlice';
 
 import styles from './Sort.module.scss';
-
-export const sortValues: TSortValues[] = [
-  { sortName: 'популярное', propertyName: 'rating', order: 'desc' },
-  { sortName: 'сначала дешевле', propertyName: 'price', order: 'asc' },
-  { sortName: 'сначала дороже', propertyName: 'price', order: 'desc' },
-];
+import { sortValues } from '../../constants';
 
 const Sort = () => {
   const dispatch = useDispatch();
@@ -27,7 +22,7 @@ const Sort = () => {
     const handleClosePopup = (e: MouseEvent) => {
       const _e = e as MouseEvent & {
         composedPath: Node[];
-      }
+      };
 
       if (sortFieldRef.current && !_e.composedPath().includes(sortFieldRef.current)) {
         setPopupIsOpen(false);

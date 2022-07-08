@@ -1,19 +1,18 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { categoriesArr } from '../../constants';
 import { actions as filterActions } from '../../slices/filterSlice';
 import { getCategoryId } from '../../slices/selectors';
 
 import styles from './Categories.module.scss';
-
-const categoriesArr: string[] = ['Все', 'Суши', 'Запеченные суши', 'Острые суши', 'Сашими'];
 
 const Categories: React.FC = () => {
   const dispatch = useDispatch();
   const categoryId = useSelector(getCategoryId);
 
   const handleChangeCategory = (index: number) => {
-    dispatch(filterActions.setCategoryId(index))
+    dispatch(filterActions.setCategoryId(index));
   };
 
   return (

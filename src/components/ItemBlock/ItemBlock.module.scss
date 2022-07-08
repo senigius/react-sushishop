@@ -42,12 +42,13 @@
 
       &:hover {
         .hidden {
-          display: block;
+          display: flex;
           width: 300px;
           background-color: rgb(243, 243, 243);
           position: absolute;
           margin-top: 20px;
           z-index: 1;
+          padding: 0;
 
           span {
             width: 100px;
