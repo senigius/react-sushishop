@@ -4,3 +4,5 @@ const getItemsFromLocalStorage = () => {
 };
 
 export default getItemsFromLocalStorage;
+
+//test
