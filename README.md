@@ -1,1 +1,3 @@
-pet-project for online sushi delivery, under construction, please wait
+pet-project for online sushi delivery
+
+https://react-sushishop.herokuapp.com/
